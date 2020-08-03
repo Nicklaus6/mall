@@ -1,7 +1,8 @@
 <template>
   <div class="goods-item">
     <img :src="goodsItem.show.img"
-         alt="">
+         alt=""
+         @load="imgLoad">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -19,6 +20,14 @@ export default {
       default () {
         return {}
       }
+    }
+  },
+  methods: {
+    imgLoad () {
+      // 原生js监听图片：img.onload=function(){}
+      // Vue中监听：@load='方法'
+      this.$bus.$emit('itemImgLoad')
+
     }
   }
 }

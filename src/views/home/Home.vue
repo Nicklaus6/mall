@@ -8,8 +8,7 @@
             ref='scroll'
             :probe-type='3'
             @scroll="contentScroll"
-            :pull-up-load='true'
-            @pullingUp='loadMore'>
+            :pull-up-load='true'>
       <home-swiper :banners="banners" />
       <recommend-view :recommends="recommends" />
       <feature-view />
@@ -81,6 +80,12 @@ export default {
     this.getHomeGoods('pop')
     this.getHomeGoods('new')
     this.getHomeGoods('sell')
+
+    // 3.监听item中图片加载完成
+    this.$bus.$on('itemImgLoad', () => {
+      console.log('````')
+      this.$refs.scroll.refresh()
+    })
   },
   methods: {
 
@@ -104,17 +109,11 @@ export default {
     contentScroll (position) {
       this.isShowBackTop = (-position.y) > 1500
     },
-    loadMore () {
-      this.getHomeGoods(this.currentType)
-
-      this.$refs.scroll.scroll.refresh
-    },
 
     // 网络请求相关的方法
 
     getHomeMultidata () {
       getHomeMultidata().then(res => {
-        // console.log(res)
         this.banners = res.data.banner.list
         this.recommends = res.data.recommend.list
       })
@@ -124,8 +123,6 @@ export default {
       getHomeGoods(type, page).then(res => {
         this.goods[type].list.push(...res.data.list)
         this.goods[type].page += 1
-
-        this.$refs.scroll.finishPullUp()
       })
     }
   }
