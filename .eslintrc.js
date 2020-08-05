@@ -13,6 +13,12 @@ module.exports = {
     'quotes': 0,
     'class-methods-use-this': 0,
     'import/extensions': 0,
+    'import/prefer-default-export': 0,
+    'func-names': 0,
+    'max-classes-per-file': 0,
+    'no-shadow': 0,
+    'no-unused-expressions': 0,
+    'no-plusplus': 0,
   },
   overrides: [
     {

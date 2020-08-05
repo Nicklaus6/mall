@@ -1,10 +1,7 @@
 <template>
-  <div class="shop-info"
-       v-if="Object.keys(shop).length !== 0">
+  <div class="shop-info" v-if="Object.keys(shop).length !== 0">
     <div class="shop-top">
-      <img :src="shop.logo"
-           alt=""
-           v-if="shop.logo" />
+      <img :src="shop.logo" alt="" v-if="shop.logo" />
       <span class="title">{{ shop.name }}</span>
     </div>
     <div class="shop-middle">
@@ -24,16 +21,13 @@
       </div>
       <div class="shop-middle-item shop-middle-right">
         <table>
-          <tr :key="index"
-              v-for="(item, index) in shop.score">
+          <tr :key="index" v-for="(item, index) in shop.score">
             <td>{{ item.name }}</td>
-            <td :class="{ 'score-better': item.isBetter }"
-                class="score">
+            <td :class="{ 'score-better': item.isBetter }" class="score">
               {{ item.score }}
             </td>
-            <td :class="{ 'better-more': item.isBetter }"
-                class="better">
-              <span>{{ item.isBetter ? "高" : "低" }}</span>
+            <td :class="{ 'better-more': item.isBetter }" class="better">
+              <span>{{ item.isBetter ? '高' : '低' }}</span>
             </td>
           </tr>
         </table>
@@ -47,21 +41,21 @@
 
 <script>
 export default {
-  name: "DetailShopInfo",
+  name: 'DetailShopInfo',
   props: {
     shop: {
       type: Object,
-      default () {
+      default() {
         return {};
-      }
-    }
+      },
+    },
   },
   filters: {
-    sellCountFilter (value) {
+    sellCountFilter(value) {
       if (value < 10000) return value;
-      return (value / 10000).toFixed(1) + "万";
-    }
-  }
+      return `${(value / 10000).toFixed(1)}万`;
+    },
+  },
 };
 </script>
 

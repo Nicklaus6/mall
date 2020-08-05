@@ -1,7 +1,6 @@
 <template>
   <!-- 用-代替大写 -->
-  <div class="tab-bar-item"
-       @click='itemClick'>
+  <div class="tab-bar-item" @click="itemClick">
     <div v-if="!isActive">
       <slot name="item-icon"></slot>
     </div>
@@ -11,7 +10,6 @@
     <div :style="activeStyle">
       <slot name="item-text"></slot>
     </div>
-
   </div>
 </template>
 
@@ -22,33 +20,32 @@ export default {
     path: String,
     activeColor: {
       type: String,
-      default: 'red'
-    }
+      default: 'red',
+    },
   },
-  data () {
+  data() {
     return {
       // isActive: true
-    }
+    };
   },
   computed: {
-    isActive () {
+    isActive() {
       // /home -> item1(/home)=true
       // indexOf == -1 就是没找到
-      return this.$route.path.indexOf(this.path) !== -1
-      console.log
+      return this.$route.path.indexOf(this.path) !== -1;
+      // console.log;
     },
-    activeStyle () {
-      return this.isActive ? { color: this.activeColor } : {}
-    }
+    activeStyle() {
+      return this.isActive ? { color: this.activeColor } : {};
+    },
   },
   methods: {
-    itemClick () {
-      console.log('itemClick')
-      this.$router.push(this.path)
-    }
-  }
-}
-
+    itemClick() {
+      console.log('itemClick');
+      this.$router.push(this.path);
+    },
+  },
+};
 </script>
 
 <style>

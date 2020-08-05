@@ -1,12 +1,11 @@
 <template>
   <div class="goods">
-    <goods-list-item v-for='item in goods'
-                     :goods-item='item' />
+    <goods-list-item v-for="(item, i) in goods" :key="i" :goods-item="item" />
   </div>
 </template>
 
 <script>
-import GoodsListItem from './GoodsListItem'
+import GoodsListItem from './GoodsListItem';
 
 export default {
   name: 'GoodsList',
@@ -16,12 +15,12 @@ export default {
   props: {
     goods: {
       type: Array,
-      default () {
-        return []
-      }
-    }
-  }
-}
+      default() {
+        return [];
+      },
+    },
+  },
+};
 </script>
 
 <style>
