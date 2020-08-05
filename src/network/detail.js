@@ -1,12 +1,12 @@
-import { request } from './request'
+import { request } from './request';
 
-export function getDetail (iid) {
+export function getDetail(iid) {
   return request({
     url: '/detail',
     params: {
-      iid
-    }
-  })
+      iid,
+    },
+  });
 }
 
 // ES6的类,详情数据
@@ -41,9 +41,8 @@ export class Shop {
 export class GoodsParams {
   constructor(info, rule) {
     // 注: images可能没有值(某些商品有值, 某些没有值)
-    this.image = info.images ? info.images[0] : "";
+    this.image = info.images ? info.images[0] : '';
     this.infos = info.set;
     this.sizes = rule.tables;
   }
 }
-

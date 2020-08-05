@@ -1,26 +1,22 @@
 <template>
-  <div v-if="Object.keys(goods).length !==0"
-       class="base-info">
-    <div class="info-title">{{goods.title}}</div>
+  <div v-if="Object.keys(goods).length !== 0" class="base-info">
+    <div class="info-title">{{ goods.title }}</div>
     <div class="info-price">
-      <div class="n-price">{{goods.newPrice}}</div>
-      <div class="o-price">{{goods.oldPrice}}</div>
-      <span v-if="goods.discount"
-            class="discount">
-        {{goods.discount}}
+      <div class="n-price">{{ goods.newPrice }}</div>
+      <div class="o-price">{{ goods.oldPrice }}</div>
+      <span v-if="goods.discount" class="discount">
+        {{ goods.discount }}
       </span>
     </div>
     <div class="info-other">
-      <span>{{goods.columns[0]}}</span>
-      <span>{{goods.columns[1]}}</span>
-      <span>{{goods.services[goods.services.length-1].name}}</span>
+      <span>{{ goods.columns[0] }}</span>
+      <span>{{ goods.columns[1] }}</span>
+      <span>{{ goods.services[goods.services.length - 1].name }}</span>
     </div>
     <div class="info-service">
-      <span class="info-service-item"
-            v-for="index in goods.services.length-1"
-            :key="index">
-        <img :src="goods.services[index-1].icon">
-        <span>{{goods.services[index-1].name}}</span>
+      <span class="info-service-item" v-for="index in goods.services.length - 1" :key="index">
+        <img :src="goods.services[index - 1].icon" />
+        <span>{{ goods.services[index - 1].name }}</span>
       </span>
     </div>
   </div>
@@ -32,12 +28,12 @@ export default {
   props: {
     goods: {
       type: Object,
-      default () {
-        return {}
-      }
-    }
-  }
-}
+      default() {
+        return {};
+      },
+    },
+  },
+};
 </script>
 
 <style>

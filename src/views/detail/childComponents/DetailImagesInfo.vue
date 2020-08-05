@@ -1,20 +1,20 @@
 <template>
-  <div class="image-info"
-       v-if="Object.keys(imagesInfo).length !== 0">
+  <div class="image-info" v-if="Object.keys(imagesInfo).length !== 0">
     <div class="info-desc clear-fix">
       <div class="start"></div>
       <div class="desc">{{ imagesInfo.desc }}</div>
       <div class="end"></div>
     </div>
-    <div :key="index"
-         v-for="(item, index) in imagesInfo.detailImage">
+    <div :key="index" v-for="(item, index) in imagesInfo.detailImage">
       <div class="info-key">{{ item.key }}</div>
       <div class="info-list">
-        <img :key="imageIndex"
-             :src="image"
-             @load="imgLoad"
-             alt=""
-             v-for="(image, imageIndex) in item.list" />
+        <img
+          :key="imageIndex"
+          :src="image"
+          @load="imgLoad"
+          alt=""
+          v-for="(image, imageIndex) in item.list"
+        />
       </div>
     </div>
   </div>
@@ -22,33 +22,33 @@
 
 <script>
 export default {
-  name: "DetailImagesInfo",
-  data () {
+  name: 'DetailImagesInfo',
+  data() {
     return {
       count: 0,
-      imagesLength: 0
+      imagesLength: 0,
     };
   },
   props: {
     imagesInfo: {
       type: Object,
-      default () {
+      default() {
         return {};
-      }
-    }
+      },
+    },
   },
   methods: {
-    imgLoad () {
+    imgLoad() {
       if (++this.count === this.imagesLength) {
-        this.$emit("imgLoad");
+        this.$emit('imgLoad');
       }
-    }
+    },
   },
   watch: {
-    imagesInfo () {
+    imagesInfo() {
       this.imagesLength = this.imagesInfo.detailImage[0].list.length;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -79,7 +79,7 @@ export default {
   bottom: 0;
   width: 5px;
   height: 5px;
-  content: "";
+  content: '';
   background-color: #333333;
 }
 .info-desc .end::after {
