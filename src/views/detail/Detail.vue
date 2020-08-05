@@ -6,6 +6,7 @@
       <detail-swiper :top-images='topImages' />
       <detail-base-info :goods='goods' />
       <detail-shop-info :shop='shop' />
+      <detail-shop-info :detail-info='detailInfo' />
     </scroll>
   </div>
 </template>
@@ -15,6 +16,7 @@ import DetailNavBar from './childComponents/DetailNavBar'
 import DetailSwiper from './childComponents/DetailSwiper'
 import DetailBaseInfo from './childComponents/DetailBaseInfo'
 import DetailShopInfo from './childComponents/DetailShopInfo'
+import DetailImagesInfo from './childComponents/DetailImagesInfo'
 
 import Scroll from 'components/common/scroll/Scroll'
 
@@ -27,6 +29,7 @@ export default {
     DetailSwiper,
     DetailBaseInfo,
     DetailShopInfo,
+    DetailImagesInfo,
     Scroll
   },
   data () {
@@ -34,7 +37,8 @@ export default {
       iid: null,
       topImages: [],
       goods: {},
-      shop: {}
+      shop: {},
+      detailInfo: {}
     }
   },
   created () {
@@ -43,17 +47,21 @@ export default {
 
     // 2.根据 iid 请求详情数据
     getDetail(this.iid).then(res => {
-      // 1.获取顶部的图片轮播
-      console.log(res)
+      // 1.获取数据
       const data = res.result
       console.log(data)
+
+      // 2.获取顶部的图片轮播
       this.topImages = data.itemInfo.topImages
 
-      // 2.获取商品信息
+      // 3.获取商品信息
       this.goods = new Goods(data.itemInfo, data.columns, data.shopInfo)
 
-      // 3.创建店铺信息的对象
+      // 4.创建店铺信息的对象
       this.shop = new Shop(data.shopInfo)
+
+      // 5.获取商品详细信息
+      this.detailInfo = data.detailInfo
     })
   }
 }
@@ -72,6 +80,7 @@ export default {
   background-color: #fff;
 }
 .content {
-  height: calc(100%-44px);
+  /* height: calc(100%-44px); */
+  height: 100%;
 }
 </style>
