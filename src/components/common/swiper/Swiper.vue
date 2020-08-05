@@ -167,7 +167,7 @@ export default {
       this.setTransform(moveDistance);
     },
 
-    touchEnd(e) {
+    touchEnd() {
       // 1.获取移动的距离
       const currentMove = Math.abs(this.distance);
 

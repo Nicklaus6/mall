@@ -38,7 +38,7 @@ import BackTop from 'components/content/backTop/BackTop';
 
 import { getHomeMultidata, getHomeGoods } from 'network/home';
 import { debounce } from 'common/utils';
-import BScroll from 'better-scroll';
+// import BScroll from 'better-scroll';
 import FeatureView from './childComps/FeatureView';
 import RecommendView from './childComps/RecommendView';
 import HomeSwiper from './childComps/HomeSwiper';
