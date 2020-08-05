@@ -1,5 +1,6 @@
 <template>
-  <div class="goods-item">
+  <div class="goods-item"
+       @click='itemClick'>
     <img :src="goodsItem.show.img"
          alt=""
          @load="imgLoad">
@@ -27,7 +28,9 @@ export default {
       // 原生js监听图片：img.onload=function(){}
       // Vue中监听：@load='方法'
       this.$bus.$emit('itemImgLoad')
-
+    },
+    itemClick () {
+      this.$router.push('/detail/' + this.goodsItem.iid)
     }
   }
 }
