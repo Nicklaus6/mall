@@ -4,9 +4,8 @@
 
 <script>
 export default {
-  name: 'Cart'
-}
+  name: 'Cart',
+};
 </script>
 
-<style>
-</style>
+<style></style>
