@@ -1,11 +1,13 @@
 <template>
   <div id="detail">
     <detail-nav-bar class="detail-nav" />
-    <scroll class="content">
+    <scroll class="content" ref="scroll">
       <detail-swiper :top-images="topImages" />
       <detail-base-info :goods="goods" />
       <detail-shop-info :shop="shop" />
-      <detail-images-info :images-info="imagesInfo" />
+      <detail-images-info :images-info="detailInfo" @imgLoad="imgLoad" />
+      <detail-param-info :paramInfo="paramInfo" />
+      <detail-comment-info :commentInfo="commentInfo" />
     </scroll>
   </div>
 </template>
@@ -18,10 +20,12 @@ import DetailSwiper from './childComponents/DetailSwiper';
 import DetailBaseInfo from './childComponents/DetailBaseInfo';
 import DetailShopInfo from './childComponents/DetailShopInfo';
 import DetailImagesInfo from './childComponents/DetailImagesInfo';
+import DetailParamInfo from './childComponents/DetailParamInfo'
+import DetailCommentInfo from './childComponents/DetailCommentInfo'
 
 import Scroll from 'components/common/scroll/Scroll';
 
-import { getDetail, Goods, Shop } from 'network/detail';
+import { getDetail, Goods, Shop, GoodsParams } from 'network/detail';
 
 export default {
   name: 'Detail',
@@ -31,6 +35,8 @@ export default {
     DetailBaseInfo,
     DetailShopInfo,
     DetailImagesInfo,
+    DetailParamInfo,
+    DetailCommentInfo,
     Scroll,
   },
   data() {
@@ -39,7 +45,9 @@ export default {
       topImages: [],
       goods: {},
       shop: {},
-      imagesInfo: {},
+      detailInfo: {},
+      paramInfo:{},
+      commentInfo:{}
     };
   },
   created() {
@@ -63,8 +71,19 @@ export default {
 
       // 5.获取商品详细信息
       this.detailInfo = data.detailInfo;
+
+      // 6.获取参数数据
+      this.paramInfo=new GoodsParams(data.itemParams.info,data.itemParams.rule)
+
+      // 7.获取评论数据
+      
     });
   },
+  methods:{
+    imgLoad() {
+      this.$refs.scroll.refresh()
+    }
+  }
 };
 </script>
 
@@ -74,6 +93,7 @@ export default {
   z-index: 1001;
   background-color: #fff;
   height: 100vh;
+  /* padding-bottom: 100px; */
 }
 .detail-nav {
   position: relative;
@@ -81,8 +101,8 @@ export default {
   background-color: #fff;
 }
 .content {
-  height: calc(100%-44px);
-  overflow-y: auto;
+  /* height: calc(100%-44px); */
   height: 100%;
+
 }
 </style>

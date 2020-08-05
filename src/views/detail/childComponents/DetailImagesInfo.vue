@@ -39,6 +39,7 @@ export default {
   },
   methods: {
     imgLoad() {
+      // 所有图片加载完了，进行一次回调
       if (++this.count === this.imagesLength) {
         this.$emit('imgLoad');
       }
@@ -46,6 +47,7 @@ export default {
   },
   watch: {
     imagesInfo() {
+      // 获取图片个数
       this.imagesLength = this.imagesInfo.detailImage[0].list.length;
     },
   },
