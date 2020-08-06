@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <img :src="goodsItem.show.img" alt="" @load="imgLoad" />
+    <img :src="showImage" alt="" @load="imgLoad" />
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">{{ goodsItem.price }}</span>
@@ -20,11 +20,21 @@ export default {
       },
     },
   },
+  computed:{
+    showImage() {
+      return this.goodsItem.image||this.goodsItem.show.img
+    }
+  },
   methods: {
     imgLoad() {
       // 原生js监听图片：img.onload=function(){}
       // Vue中监听：@load='方法'
-      this.$bus.$emit('itemImgLoad');
+
+      if(this.$route.path.indexOf('/home')){
+        this.$bus.$emit('homeItemImgLoad')
+      }else if (this.$route.path.indexOf('/detail')){
+        this.$bus.$emit('detailItemImgLoad')
+      }
     },
     itemClick() {
       this.$router.push(`/detail/${this.goodsItem.iid}`);

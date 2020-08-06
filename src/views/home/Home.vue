@@ -72,6 +72,7 @@ export default {
       tabOffsetTop: 0,
       isTabFixed: false,
       saveY: 0,
+      itemListener:0
     };
   },
   computed: {
@@ -80,14 +81,16 @@ export default {
     },
   },
   destroyed() {
-    console.log('des');
+   
   },
   activated() {
-    this.$refs.scroll.scrollTo(0, this.saveY, 0);
+    this.$refs.scroll.scrollTo(0, this.saveY, 100);
     this.$refs.scroll.refresh();
   },
   deactivated() {
+    // 保存y值
     this.saveY = this.$refs.scroll.getScrollY();
+
   },
   created() {
     // 1.请求多个数据
@@ -100,7 +103,7 @@ export default {
   },
   mounted() {
     // 1.图片加载完成的事件监听
-    const refresh = debounce(this.$refs.scroll.refresh);
+    let refresh = debounce(this.$refs.scroll.refresh,100);
     this.$bus.$on('itemImgLoad', () => {
       refresh();
     });
