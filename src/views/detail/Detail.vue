@@ -20,6 +20,9 @@
                   :goods="recommends" />
     </scroll>
     <detail-bottom-bar />
+
+    <back-top @click.native="backClick"
+              v-show="isShowBackTop" />
   </div>
 </template>
 
@@ -53,9 +56,9 @@ export default {
     DetailCommentInfo,
     DetailBottomBar,
     Scroll,
-    GoodsList
+    GoodsList,
   },
-  minins: { backTopMixin },
+  mixins: { backTopMixin },
   data () {
     return {
       iid: null,
@@ -147,7 +150,10 @@ export default {
           this.$refs.nav.currentIndex = this.currentIndex
         }
       }
-    }
+
+      // 3.是否显示回到顶部
+      this.listenShowBackTop(position)
+    },
   }
 };
 </script>

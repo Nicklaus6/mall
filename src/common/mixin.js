@@ -6,7 +6,7 @@ export const backTopMixin = {
   },
   data () {
     return {
-      isShowBackTop: false,
+      isShowBackTop: false
     }
   },
   methods: {
@@ -14,5 +14,8 @@ export const backTopMixin = {
       console.log('back')
       this.$refs.scroll.scrollTo(0, 0, 300);
     },
+    listenShowBackTop (position) {
+      this.isShowBackTop = -position.y > 1500
+    }
   }
 }
