@@ -1,9 +1,12 @@
 <template>
   <div id="detail">
     <detail-nav-bar class="detail-nav"
-                    @titleClick="titleClick" />
+                    @titleClick="titleClick"
+                    ref="nav" />
     <scroll class="content"
-            ref="scroll">
+            ref="scroll"
+            @scroll="contentScroll"
+            :probeType="3">
       <detail-swiper :top-images="topImages" />
       <detail-base-info :goods="goods" />
       <detail-shop-info :shop="shop" />
@@ -16,11 +19,11 @@
       <goods-list ref="recommend"
                   :goods="recommends" />
     </scroll>
+    <detail-bottom-bar />
   </div>
 </template>
 
 <script>
-
 
 import DetailNavBar from './childComponents/DetailNavBar';
 import DetailSwiper from './childComponents/DetailSwiper';
@@ -29,11 +32,14 @@ import DetailShopInfo from './childComponents/DetailShopInfo';
 import DetailImagesInfo from './childComponents/DetailImagesInfo';
 import DetailParamInfo from './childComponents/DetailParamInfo'
 import DetailCommentInfo from './childComponents/DetailCommentInfo'
+import DetailBottomBar from './childComponents/DetailBottomBar'
 
 import Scroll from 'components/common/scroll/Scroll';
 import GoodsList from 'components/content/goods/GoodsList'
 
 import { getDetail, Goods, Shop, GoodsParams, getRecommend } from 'network/detail';
+import { debouce } from 'common/utils'
+import { backTopMixin } from 'common/mixin'
 
 export default {
   name: 'Detail',
@@ -45,9 +51,11 @@ export default {
     DetailImagesInfo,
     DetailParamInfo,
     DetailCommentInfo,
+    DetailBottomBar,
     Scroll,
     GoodsList
   },
+  minins: { backTopMixin },
   data () {
     return {
       iid: null,
@@ -59,6 +67,8 @@ export default {
       commentInfo: {},
       recommends: [],
       themeTopYs: [],
+      getThemeTopY: null,
+      currentIndex: 0
     };
   },
   created () {
@@ -96,20 +106,47 @@ export default {
     getRecommend().then(res => {
       this.recommends = res.data.list
     })
-  },
-  methods: {
-    imgLoad () {
-      this.$refs.scroll.refresh()
 
+    // 4.给getThemeTopY赋值
+    this.getThemeTopY = debouce(() => {
       this.themeTopYs = []
       this.themeTopYs.push(0)
       this.themeTopYs.push(this.$refs.params.$el.offsetTop - 44)
       this.themeTopYs.push(this.$refs.comment.$el.offsetTop - 44)
       this.themeTopYs.push(this.$refs.recommend.$el.offsetTop - 44)
+      this.themeTopYs.push(Number.MAX_VALUE)
 
+      console.log(this.themeTopYs)
+    })
+  },
+  methods: {
+    imgLoad () {
+      this.$refs.scroll.refresh()
+      this.getThemeTopY()
     },
     titleClick (index) {
-      this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 400)
+      this.$refs.scroll && this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 400)
+    },
+    contentScroll (position) {
+      // 1.获取y值
+      const positionY = -position.y
+
+      // 2.positionY和主题中的值做对比
+      // [0, 8422, 9344, 9581,Number.MAX_VALUE]
+
+      // positionY在 0-8422 之间 index=0
+      // positionY在 8422-9344 之间 index=1
+      // positionY在 9344-9581 之间 index=2
+
+      // positionY在 9581和很大的值之间 index=3
+
+      let length = this.themeTopYs.length
+      for (let i = 0; i < length - 1; i++) {
+        if (this.currentIndex !== i && (positionY >= this.themeTopYs[i] && positionY < this.themeTopYs[i + 1])) {
+          this.currentIndex = i
+          this.$refs.nav.currentIndex = this.currentIndex
+        }
+      }
     }
   }
 };
