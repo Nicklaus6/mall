@@ -7,6 +7,9 @@
             ref="scroll"
             @scroll="contentScroll"
             :probeType="3">
+      <ul>
+        <li v-for="item in $store.state.cartList">{{item}}</li>
+      </ul>
       <detail-swiper :top-images="topImages" />
       <detail-base-info :goods="goods" />
       <detail-shop-info :shop="shop" />
@@ -19,7 +22,7 @@
       <goods-list ref="recommend"
                   :goods="recommends" />
     </scroll>
-    <detail-bottom-bar />
+    <detail-bottom-bar @addCart="addToCart" />
 
     <back-top @click.native="backClick"
               v-show="isShowBackTop" />
@@ -43,7 +46,6 @@ import GoodsList from 'components/content/goods/GoodsList'
 import { getDetail, Goods, Shop, GoodsParams, getRecommend } from 'network/detail';
 import { debouce } from 'common/utils'
 import { backTopMixin } from 'common/mixin'
-
 
 export default {
   name: 'Detail',
@@ -158,6 +160,18 @@ export default {
       // 3.是否显示回到顶部
       this.listenShowBackTop(position)
     },
+    addToCart () {
+      // 1.获取购物车需要展示的信息
+      const product = {}
+      product.image = this.topImages[0]
+      product.title = this.goods.title
+      product.desc = this.goods.desc
+      product.price = this.goods.nowPrice
+      product.iid = this.iid
+
+      // 2.将商品添加到购物车
+      this.$store.dispatch('addCart', product)
+    }
   }
 };
 </script>
