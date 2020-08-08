@@ -76,9 +76,9 @@ export default {
     };
   },
   created () {
-    console.log(this)
-    console.log(this.backTopMixin)
-    console.log(backTopMixin)
+    // minin查错打印 
+    // console.log(backTopMixin)
+
     // 1.保存传入的 iid
     this.iid = this.$route.params.iid;
 
