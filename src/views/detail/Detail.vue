@@ -44,6 +44,7 @@ import { getDetail, Goods, Shop, GoodsParams, getRecommend } from 'network/detai
 import { debouce } from 'common/utils'
 import { backTopMixin } from 'common/mixin'
 
+
 export default {
   name: 'Detail',
   components: {
@@ -58,7 +59,7 @@ export default {
     Scroll,
     GoodsList,
   },
-  mixins: { backTopMixin },
+  mixins: [backTopMixin],
   data () {
     return {
       iid: null,
@@ -75,6 +76,9 @@ export default {
     };
   },
   created () {
+    console.log(this)
+    console.log(this.backTopMixin)
+    console.log(backTopMixin)
     // 1.保存传入的 iid
     this.iid = this.$route.params.iid;
 

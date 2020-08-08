@@ -11,7 +11,6 @@ export const backTopMixin = {
   },
   methods: {
     backClick () {
-      console.log('back')
       this.$refs.scroll.scrollTo(0, 0, 300);
     },
     listenShowBackTop (position) {

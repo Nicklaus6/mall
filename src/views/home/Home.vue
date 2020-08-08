@@ -34,11 +34,12 @@ import NavBar from 'components/common/navbar/NavBar';
 import TabControl from 'components/content/tabControl/TabControl';
 import GoodsList from 'components/content/goods/GoodsList';
 import Scroll from 'components/common/scroll/Scroll';
-import BackTop from 'components/content/backTop/BackTop';
+
 
 import { getHomeMultidata, getHomeGoods } from 'network/home';
 import { debouce } from 'common/utils';
-// import BScroll from 'better-scroll';
+import { backTopMixin } from 'common/mixin'
+
 import FeatureView from './childComps/FeatureView';
 import RecommendView from './childComps/RecommendView';
 import HomeSwiper from './childComps/HomeSwiper';
@@ -54,10 +55,8 @@ export default {
     TabControl,
     GoodsList,
     Scroll,
-    BackTop,
-
-    // BScroll,
   },
+  mixins: [backTopMixin],
   data () {
     return {
       banners: [],
@@ -87,7 +86,6 @@ export default {
   deactivated () {
     // 保存y值
     this.saveY = this.$refs.scroll.getScrollY();
-
   },
   created () {
     // 1.请求多个数据
@@ -125,9 +123,9 @@ export default {
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
     },
-    backClick () {
-      this.$refs.scroll.scrollTo(0, 0, 300);
-    },
+    // backClick () {
+    //   this.$refs.scroll.scrollTo(0, 0, 300);
+    // },
     contentScroll (position) {
       // 1.判断 BackTop是否显示
       this.isShowBackTop = -position.y > 1500;
