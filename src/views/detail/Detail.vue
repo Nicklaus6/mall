@@ -192,5 +192,7 @@ export default {
 .content {
   /* height: calc(100%-44px); */
   height: 100%;
+  /* 清空溢出部分 */
+  overflow-x: hidden;
 }
 </style>
