@@ -51,11 +51,13 @@ export default {
   color: #fff;
   font-weight: 700;
 }
+
 .cart {
   height: 100vh;
 }
+
 .content {
-  height: 100%;
+  min-height: calc(100vh - 50px);
   overflow: hidden;
 }
 </style>
