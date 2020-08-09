@@ -53,11 +53,11 @@ export default {
 }
 
 .cart {
-  height: 100vh;
+  /* 运算符前后一定要加空格！！ */
+  height: calc(100vh - 44px - 40px - 49px);
 }
 
 .content {
-  /* min-height: calc(100vh - 49px); */
   height: 100%;
   overflow: hidden;
 }

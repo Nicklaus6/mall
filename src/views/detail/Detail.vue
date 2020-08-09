@@ -179,8 +179,7 @@ export default {
   position: relative;
   z-index: 1001;
   background-color: #fff;
-  height: 100vh;
-  /* padding-bottom: 100px; */
+  height: calc(100vh - 44px - 50px);
 }
 .detail-nav {
   position: relative;
@@ -188,7 +187,6 @@ export default {
   background-color: #fff;
 }
 .content {
-  /* height: calc(100%-44px); */
   height: 100%;
   /* 清空溢出部分 */
   overflow-x: hidden;

@@ -1,6 +1,7 @@
 <template>
   <!-- 用-代替大写 -->
-  <div class="tab-bar-item" @click="itemClick">
+  <div class="tab-bar-item"
+       @click="itemClick">
     <div v-if="!isActive">
       <slot name="item-icon"></slot>
     </div>
@@ -23,25 +24,23 @@ export default {
       default: 'red',
     },
   },
-  data() {
+  data () {
     return {
       // isActive: true
     };
   },
   computed: {
-    isActive() {
+    isActive () {
       // /home -> item1(/home)=true
       // indexOf == -1 就是没找到
       return this.$route.path.indexOf(this.path) !== -1;
-      // console.log;
     },
-    activeStyle() {
+    activeStyle () {
       return this.isActive ? { color: this.activeColor } : {};
     },
   },
   methods: {
-    itemClick() {
-      console.log('itemClick');
+    itemClick () {
       this.$router.push(this.path);
     },
   },

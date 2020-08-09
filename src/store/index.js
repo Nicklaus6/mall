@@ -10,6 +10,7 @@ Vue.use(Vuex)
 
 // 2.创建Store对象
 const state = {
+  // cartList: new Array(50).fill('')
   cartList: []
 }
 

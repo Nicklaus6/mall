@@ -166,17 +166,12 @@ export default {
 
 <style scoped>
 #home {
-  /* padding-top: 44px; */
   height: 100vh;
   position: relative;
 }
 .home-nav {
   background-color: var(--color-tint);
   color: #fff;
-
-  /* position: sticky;
-  top: 0;
-  z-index: 1000; */
 }
 .content {
   overflow: hidden;
