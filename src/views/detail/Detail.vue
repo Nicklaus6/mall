@@ -24,6 +24,8 @@
 
     <back-top @click.native="backClick"
               v-show="isShowBackTop" />
+    <!-- <toast :message="message"
+           :show="show" /> -->
   </div>
 </template>
 
@@ -44,6 +46,8 @@ import GoodsList from 'components/content/goods/GoodsList'
 import { getDetail, Goods, Shop, GoodsParams, getRecommend } from 'network/detail';
 import { debouce } from 'common/utils'
 import { backTopMixin } from 'common/mixin'
+
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Detail',
@@ -72,7 +76,7 @@ export default {
       recommends: [],
       themeTopYs: [],
       getThemeTopY: null,
-      currentIndex: 0
+      currentIndex: 0,
     };
   },
   created () {
@@ -127,6 +131,7 @@ export default {
     })
   },
   methods: {
+    ...mapActions(['addCart']),
     imgLoad () {
       this.$refs.scroll.refresh()
       this.getThemeTopY()
@@ -167,8 +172,12 @@ export default {
       product.price = this.goods.nowPrice
       product.iid = this.iid
 
-      // 2.将商品添加到购物车
-      this.$store.dispatch('addCart', product)
+      // 2.将商品添加到购物车 (1. Promise 2. mapActions)
+      // this.$store.dispatch('addCart',product)
+      this.addCart(product).then(res => {
+        this.$toast.show(res)
+      })
+
     }
   }
 };
