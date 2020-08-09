@@ -4,15 +4,15 @@
     <nav-bar class="nav-bar">
       <div slot="center">购物车({{cartLength}})</div>
     </nav-bar>
+
     <scroll class="content"
             ref="scroll">
       <!-- 商品的列表 -->
       <cart-list />
 
-      <!-- 底部汇总 -->
-      <cart-bottom-bar />
-
     </scroll>
+    <!-- 底部汇总 -->
+    <cart-bottom-bar />
 
   </div>
 </template>
@@ -57,7 +57,8 @@ export default {
 }
 
 .content {
-  min-height: calc(100vh - 50px);
+  /* min-height: calc(100vh - 49px); */
+  height: 100%;
   overflow: hidden;
 }
 </style>

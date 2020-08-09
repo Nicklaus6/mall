@@ -44,6 +44,7 @@ export default {
 .bottom-bar {
   position: fixed;
   bottom: 49px;
+  left: 0;
 
   display: flex;
   /* 默认情况下的块级盒模型的宽度就是100% 绝对定位后脱离标准文档流（相对定位没有 所以没被挤压） 块级元素失效 所以给flex的元素设置宽度100%即可 */
