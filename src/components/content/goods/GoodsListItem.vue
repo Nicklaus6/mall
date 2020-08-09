@@ -1,6 +1,9 @@
 <template>
-  <div class="goods-item" @click="itemClick">
-    <img :src="showImage" alt="" @load="imgLoad" />
+  <div class="goods-item"
+       @click="itemClick">
+    <img v-lazy="showImage"
+         alt=""
+         @load="imgLoad" />
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">{{ goodsItem.price }}</span>
@@ -15,28 +18,28 @@ export default {
   props: {
     goodsItem: {
       type: Object,
-      default() {
+      default () {
         return {};
       },
     },
   },
-  computed:{
-    showImage() {
-      return this.goodsItem.image||this.goodsItem.show.img
+  computed: {
+    showImage () {
+      return this.goodsItem.image || this.goodsItem.show.img
     }
   },
   methods: {
-    imgLoad() {
+    imgLoad () {
       // 原生js监听图片：img.onload=function(){}
       // Vue中监听：@load='方法'
 
-      if(this.$route.path.indexOf('/home')){
+      if (this.$route.path.indexOf('/home')) {
         this.$bus.$emit('homeItemImgLoad')
-      }else if (this.$route.path.indexOf('/detail')){
+      } else if (this.$route.path.indexOf('/detail')) {
         this.$bus.$emit('detailItemImgLoad')
       }
     },
-    itemClick() {
+    itemClick () {
       this.$router.push(`/detail/${this.goodsItem.iid}`);
     },
   },
