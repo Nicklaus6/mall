@@ -44,7 +44,6 @@ export default {
 .bottom-bar {
   position: relative;
   display: flex;
-  float: left;
 
   height: 40px;
   line-height: 40px;
