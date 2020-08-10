@@ -49,7 +49,6 @@ export default {
 .nav-bar {
   background-color: var(--color-tint);
   color: #fff;
-  font-weight: 700;
 }
 
 .cart {

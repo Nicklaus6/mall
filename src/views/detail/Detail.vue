@@ -44,7 +44,7 @@ import Scroll from 'components/common/scroll/Scroll';
 import GoodsList from 'components/content/goods/GoodsList'
 
 import { getDetail, Goods, Shop, GoodsParams, getRecommend } from 'network/detail';
-import { debouce } from 'common/utils'
+import { debounce } from 'common/utils'
 import { backTopMixin } from 'common/mixin'
 
 import { mapActions } from 'vuex'
@@ -119,7 +119,7 @@ export default {
     })
 
     // 4.给getThemeTopY赋值
-    this.getThemeTopY = debouce(() => {
+    this.getThemeTopY = debounce(() => {
       this.themeTopYs = []
       this.themeTopYs.push(0)
       this.themeTopYs.push(this.$refs.params.$el.offsetTop - 44)

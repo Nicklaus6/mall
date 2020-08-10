@@ -37,7 +37,7 @@ import Scroll from 'components/common/scroll/Scroll';
 
 
 import { getHomeMultidata, getHomeGoods } from 'network/home';
-import { debouce } from 'common/utils';
+import { debounce } from 'common/utils';
 import { backTopMixin } from 'common/mixin'
 
 import FeatureView from './childComps/FeatureView';
@@ -98,7 +98,7 @@ export default {
   },
   mounted () {
     // 1.图片加载完成的事件监听
-    let refresh = debouce(this.$refs.scroll.refresh, 100);
+    let refresh = debounce(this.$refs.scroll.refresh, 100);
     this.$bus.$on('itemImgLoad', () => {
       refresh();
     });
