@@ -24,8 +24,6 @@
 
     <back-top @click.native="backClick"
               v-show="isShowBackTop" />
-    <!-- <toast :message="message"
-           :show="show" /> -->
   </div>
 </template>
 
