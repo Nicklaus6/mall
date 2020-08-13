@@ -9,7 +9,6 @@
         {{item.title}}
       </div>
     </div>
-
   </scroll>
 </template>
 
@@ -41,12 +40,11 @@ export default {
 
 <style scoped>
 #tab-menu {
-  height: 100%;
+  height: calc(100vh - 44px - 49px);
   width: 100px;
   background-color: #f6f6f6;
   box-sizing: border-box;
 }
-
 .menu-list-item {
   text-align: center;
   color: #666;

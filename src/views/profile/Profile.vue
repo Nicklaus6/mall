@@ -2,7 +2,8 @@
   <div>
     <scroll class="content">
       <ul>
-        <li v-for="(item, i) in 100" :key="i">{{ item }}Profile</li>
+        <li v-for="(item, i) in 100"
+            :key="i">{{ item }}Profile</li>
       </ul>
     </scroll>
   </div>
@@ -21,8 +22,8 @@ export default {
 
 <style scoped>
 .content {
-  height: 300px;
-  background-color: hotpink;
+  height: 500px;
+  background-color: rgb(243, 165, 204);
   overflow: hidden;
 }
 </style>
