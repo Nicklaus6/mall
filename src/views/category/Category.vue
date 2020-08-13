@@ -9,7 +9,7 @@
       </tab-menu>
 
       <scroll id="tab-content">
-        <tab-content-category></tab-content-category>
+        <tab-content-category :subcategories="showSubcategories"></tab-content-category>
       </scroll>
     </div>
 
@@ -24,7 +24,7 @@ import Scroll from 'components/common/scroll/Scroll'
 import TabMenu from './childComponents/TabMenu'
 import TabContentCategory from './childComponents/TabContentCategory'
 
-import { getCategory } from 'network/category'
+import { getCategory, getSubcategories } from 'network/category'
 
 export default {
   name: 'Category',
@@ -36,20 +36,44 @@ export default {
   },
   data () {
     return {
-      categories: []
+      categories: [],
+      categoryData: {},
+      currentIndex: 0
     };
   },
   created () {
     this._getCategory()
   },
+  computed: {
+    showSubcategories () {
+      return
+    }
+  },
   methods: {
     _getCategory () {
       getCategory().then(res => {
         console.log(res.data.category.list)
-        console.log(res.data.category)
 
         // 1.保存categories的数据
         this.categories = res.data.category.list
+        // 2.初始化每个类的子数据
+        for (let i = 0; i < this.categories.length; i++) {
+          this.categoryData[i] = {
+            subcategories: {}
+          }
+        }
+
+        this._getSubcategories(0)
+      })
+    },
+    _getSubcategories (index) {
+      this.currentIndex = index
+      // 获取maitKey
+      const maitKey = this.categories[index].maitKey
+      console.log(maitKey)
+      getSubcategories(maitKey).then(res => {
+        console.log(res.data)
+        this.categoryData[index].subcategories = res.data
 
       })
     }
