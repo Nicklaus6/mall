@@ -7,10 +7,9 @@
     <div class="content">
       <tab-menu :categories="categories">
       </tab-menu>
+
       <scroll id="tab-content">
-        <li v-for="(item, i) in 100"
-            :key="i">right
-        </li>
+        <tab-content-category></tab-content-category>
       </scroll>
     </div>
 
@@ -23,6 +22,7 @@ import NavBar from 'components/common/navbar/NavBar'
 
 import Scroll from 'components/common/scroll/Scroll'
 import TabMenu from './childComponents/TabMenu'
+import TabContentCategory from './childComponents/TabContentCategory'
 
 import { getCategory } from 'network/category'
 
@@ -31,7 +31,8 @@ export default {
   components: {
     NavBar,
     Scroll,
-    TabMenu
+    TabMenu,
+    TabContentCategory
   },
   data () {
     return {
@@ -45,6 +46,7 @@ export default {
     _getCategory () {
       getCategory().then(res => {
         console.log(res.data.category.list)
+        console.log(res.data.category)
 
         // 1.保存categories的数据
         this.categories = res.data.category.list
@@ -63,17 +65,26 @@ export default {
   background-color: var(--color-tint);
   color: #fff;
 }
-.content,
-.tab-menu,
-#tab-content {
+
+.content {
   overflow: hidden;
+  display: flex;
+}
+
+#tab-content {
+  flex: 1;
   height: calc(100vh - 44px - 49px);
 }
+/* 
 .tab-menu {
   width: 20%;
   background-color: orange;
   float: left;
 }
 #tab-content {
-}
+  width: 80%;
+  height: calc(100vh - 44px - 49px);
+  float: right;
+  background-color: orange;
+} */
 </style>

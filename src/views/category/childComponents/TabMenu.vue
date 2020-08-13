@@ -1,5 +1,5 @@
 <template>
-  <scroll class="content">
+  <scroll id="tab-menu">
     <div class="menu-list">
       <div class="menu-list-item"
            v-for="(item,index) in categories"
@@ -15,7 +15,6 @@
 
 <script>
 import Scroll from 'components/common/scroll/Scroll'
-
 
 export default {
   name: "TabMenu",
@@ -41,22 +40,20 @@ export default {
 </script>
 
 <style scoped>
-.content {
+#tab-menu {
   height: 100%;
   width: 100px;
   background-color: #f6f6f6;
   box-sizing: border-box;
 }
-.menu-list {
-  height: 100%;
-}
+
 .menu-list-item {
   text-align: center;
   color: #666;
   height: 45px;
   line-height: 45px;
 }
-.active {
+.menu-list-item.active {
   color: var(--color-tint);
   background-color: #fff;
   font-weight: 700;
