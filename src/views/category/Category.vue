@@ -5,7 +5,8 @@
     </nav-bar>
 
     <div class="content">
-      <tab-menu :categories="categories">
+      <tab-menu :categories="categories"
+                @selectItem="selectItem">
       </tab-menu>
 
       <scroll id="tab-content">
@@ -46,7 +47,8 @@ export default {
   },
   computed: {
     showSubcategories () {
-      return
+      if (!this.categoryData[this.currentIndex]) return {}
+      return this.categoryData[this.currentIndex].subcategories
     }
   },
   methods: {
@@ -68,14 +70,19 @@ export default {
     },
     _getSubcategories (index) {
       this.currentIndex = index
-      // 获取maitKey
+      // 1.获取请求的 maitKey
       const maitKey = this.categories[index].maitKey
-      console.log(maitKey)
+      // 2.发送请求，传入maitKey
       getSubcategories(maitKey).then(res => {
-        console.log(res.data)
+        // 3.将获取的数据保存下来
         this.categoryData[index].subcategories = res.data
-
+        console.log(this.categoryData)
+        this.categoryData = { ...this.categoryData }
       })
+    },
+
+    selectItem (index) {
+      this._getSubcategories(index)
     }
   }
 };
@@ -99,16 +106,4 @@ export default {
   flex: 1;
   height: calc(100vh - 44px - 49px);
 }
-/* 
-.tab-menu {
-  width: 20%;
-  background-color: orange;
-  float: left;
-}
-#tab-content {
-  width: 80%;
-  height: calc(100vh - 44px - 49px);
-  float: right;
-  background-color: orange;
-} */
 </style>
