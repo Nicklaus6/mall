@@ -61,7 +61,8 @@ export default {
       return this.categoryData[this.currentIndex].subcategories
     },
     showCategoryDetail () {
-      console.log(this.categoryData[this.currentIndex]) // undefined??
+      if (!this.categoryData[this.currentIndex]) return []
+      // console.log(this.categoryData[this.currentIndex]) // undefined?? 因为computed在created之前就执行了 还没有数据
       return this.categoryData[this.currentIndex].categoryDetail[this.currentType]
     }
   },

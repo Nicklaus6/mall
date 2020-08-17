@@ -2,7 +2,8 @@
   <div>
     <goods-list-item v-for="(item,index) in categoryDetail"
                      :key="index"
-                     :goodsItem="item">
+                     :goodsItem="item"
+                     class="goods-list-item">
       {{categoryDetail}}
     </goods-list-item>
 
@@ -28,5 +29,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.goods-list-item {
+  display: inline-block;
+  margin-right: 2px;
+}
 </style>
