@@ -39,6 +39,7 @@ import Scroll from 'components/common/scroll/Scroll';
 import { getHomeMultidata, getHomeGoods } from 'network/home';
 import { debounce } from 'common/utils';
 import { backTopMixin } from 'common/mixin'
+import { BACK_POSITION } from 'common/const'
 
 import FeatureView from './childComps/FeatureView';
 import RecommendView from './childComps/RecommendView';
@@ -123,12 +124,10 @@ export default {
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
     },
-    // backClick () {
-    //   this.$refs.scroll.scrollTo(0, 0, 300);
-    // },
+
     contentScroll (position) {
       // 1.判断 BackTop是否显示
-      this.isShowBackTop = -position.y > 1500;
+      this.isShowBackTop = -position.y > BACK_POSITION;
 
       // 2.决定 tabControl 是否吸顶 (position:fixed)
       this.isTabFixed = -position.y > this.tabOffsetTop;

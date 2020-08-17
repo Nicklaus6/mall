@@ -11,6 +11,10 @@
 
       <scroll id="tab-content">
         <tab-content-category :subcategories="showSubcategories"></tab-content-category>
+        <tab-control :titles="['综合','新品','销量']"
+                     @tabClick="tabClick"
+                     ref="tabControl" />
+        <tab-content-detail :category-detail="showCategoryDetail"></tab-content-detail>
       </scroll>
     </div>
 
@@ -20,35 +24,45 @@
 
 <script>
 import NavBar from 'components/common/navbar/NavBar'
-
 import Scroll from 'components/common/scroll/Scroll'
+import TabControl from 'components/content/tabControl/TabControl'
+
 import TabMenu from './childComponents/TabMenu'
 import TabContentCategory from './childComponents/TabContentCategory'
+import TabContentDetail from './childComponents/TabContentDetail'
 
-import { getCategory, getSubcategories } from 'network/category'
+import { getCategory, getSubcategories, getCategoryDetail } from 'network/category'
 
 export default {
   name: 'Category',
   components: {
     NavBar,
     Scroll,
+    TabControl,
     TabMenu,
-    TabContentCategory
+    TabContentCategory,
+    TabContentDetail
   },
   data () {
     return {
       categories: [],
       categoryData: {},
-      currentIndex: 0
+      currentIndex: 1,
+      currentType: 'pop'
     };
   },
   created () {
+    // 请求分类数据
     this._getCategory()
   },
   computed: {
     showSubcategories () {
       if (!this.categoryData[this.currentIndex]) return {}
       return this.categoryData[this.currentIndex].subcategories
+    },
+    showCategoryDetail () {
+      console.log(this.categoryData[this.currentIndex]) // undefined??
+      return this.categoryData[this.currentIndex].categoryDetail[this.currentType]
     }
   },
   methods: {
@@ -56,12 +70,17 @@ export default {
       getCategory().then(res => {
         console.log(res.data.category.list)
 
-        // 1.保存categories的数据
+        // 1.获取categories的数据
         this.categories = res.data.category.list
         // 2.初始化每个类的子数据
         for (let i = 0; i < this.categories.length; i++) {
           this.categoryData[i] = {
-            subcategories: {}
+            subcategories: {},
+            categoryDetail: {
+              'pop': [],
+              'new': [],
+              'sell': []
+            }
           }
         }
 
@@ -78,11 +97,40 @@ export default {
         this.categoryData[index].subcategories = res.data
         console.log(this.categoryData)
         this.categoryData = { ...this.categoryData }
+        this._getCategoryDetail('pop')
+        this._getCategoryDetail('sell')
+        this._getCategoryDetail('new')
       })
     },
-
+    _getCategoryDetail (type) {
+      // 1.获取请求的 miniWallkey
+      const miniWallkey = this.categories[this.currentIndex].miniWallkey
+      // 2.发送请求 传入miniWallkey和type
+      getCategoryDetail(miniWallkey, type).then(res => {
+        // 3.将获取的数据保存下来
+        this.categoryData[this.currentIndex].categoryDetail[type] = res
+        this.categoryData = { ...this.categoryData }
+        console.log(this.categoryData[this.currentIndex].categoryDetail[type])
+      })
+    },
     selectItem (index) {
       this._getSubcategories(index)
+    },
+    tabClick (index) {
+      switch (index) {
+        case 0:
+          this.currentType = 'pop'
+          break
+        case 1:
+          this.currentType = 'new'
+          break
+        case 2:
+          this.currentType = 'sell'
+          break
+        default: break
+      }
+      this.refs.tabControl.currentIndex = index
+
     }
   }
 };
