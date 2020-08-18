@@ -1,29 +1,33 @@
 <template>
-  <div>
-    <scroll class="content">
-      <ul>
-        <li v-for="(item, i) in 100"
-            :key="i">{{ item }}Profile</li>
-      </ul>
-    </scroll>
+  <div id="profile">
+    <nav-bar class="profile-nav">
+      <div slot="center">我的档案</div>
+    </nav-bar>
+    <user-info />
   </div>
 </template>
 
 <script>
-import Scroll from 'components/common/scroll/Scroll';
+import NavBar from 'components/common/navbar/NavBar'
+
+import UserInfo from './childComponents/UserInfo'
 
 export default {
   name: 'Profile',
   components: {
-    Scroll,
-  },
+    NavBar,
+    UserInfo
+  }
 };
 </script>
 
 <style scoped>
-.content {
-  height: 500px;
-  background-color: rgb(243, 165, 204);
-  overflow: hidden;
+#profile {
+  background-color: #f2f2f2;
+}
+
+.profile-nav {
+  background-color: var(--color-tint);
+  color: #fff;
 }
 </style>

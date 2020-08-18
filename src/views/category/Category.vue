@@ -13,14 +13,16 @@
               @scroll="contentScroll"
               ref="scroll"
               :probe-type="3">
-        <tab-content-category :subcategories="showSubcategories"></tab-content-category>
+        <tab-content-category :subcategories="showSubcategories" />
         <tab-control :titles="['综合','新品','销量']"
-                     @tabClick="tabClick" />
-        <tab-content-detail :category-detail="showCategoryDetail"></tab-content-detail>
-
+                     @tabClick="tabClick"
+                     ref="tabControl" />
+        <tab-content-detail :category-detail="showCategoryDetail" />
       </scroll>
+
       <back-top @click.native="backClick"
                 v-show="isShowBackTop" />
+
     </div>
 
   </div>
@@ -58,6 +60,7 @@ export default {
       categoryData: {},
       currentIndex: 1,
       currentType: 'pop',
+
     };
   },
   created () {
@@ -135,13 +138,14 @@ export default {
           break
         default: break
       }
+      this.$refs.tabControl.currentIndex = index;
     },
     contentScroll (position) {
       // 判断 BackTop是否显示
-      this.isShowBackTop = -position.y > BACK_POSITION;
-      console.log(position)
+      this.isShowBackTop = -position.y > BACK_POSITION
     },
-  }
+  },
+
 };
 </script>
 
