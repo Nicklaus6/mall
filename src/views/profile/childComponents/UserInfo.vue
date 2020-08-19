@@ -14,17 +14,12 @@
       </div>
     </div>
 
-    <div class="right">
-      <img src=""
-           alt="">
-    </div>
-
   </div>
 </template>
 
 <script>
 export default {
-
+  name: "UserInfo"
 }
 </script>
 
@@ -37,7 +32,7 @@ export default {
   float: left;
   width: 23%;
   margin-top: 10px;
-  margin-left: 10px;
+  margin-left: 15px;
   padding: 10px;
 }
 .left img {
@@ -45,8 +40,10 @@ export default {
 }
 .center {
   margin-top: 30px;
+  margin-left: 18px;
   width: 20%;
   color: #fff;
+  font-size: 16px;
 }
 .center img {
   width: 8%;
